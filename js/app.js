@@ -78,59 +78,65 @@ async function renderReviews() {
 }
 
 
-// --- FIX: Replaced setInterval with requestAnimationFrame for display-synced performance.
-// Moved array allocation outside the loop to prevent massive garbage collection churn.
-// --- FIX: Replaced setInterval with requestAnimationFrame for performance,
-// and restored the original "rain streak" visual effect.
 function startParticles() {
-  const canvas = document.getElementById('particle-canvas');
+  const canvas = document.querySelector('canvas'); 
+  if (!canvas) return; 
   const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
 
-// Change the 200 count to be responsive
-  // 50 particles on mobile, 200 on desktop
-  const particleCount = window.innerWidth < 768 ? 50 : 200;
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  // 1. Initialize particles with a LENGTH property
+  const particleCount = window.innerWidth < 768 ? 30 : 75;
   const particles = [];
+  
   for (let i = 0; i < particleCount; i++) {
     particles.push({
-      x: Math.random() * canvas.width, 
+      x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      speed: Math.random() * 14 + 14,    // How fast it falls
-      length: Math.random() * 25 + 15 // How long the streak is
+      w: Math.random() * 4 + 2,       // Width of the raindrop
+      l: Math.random() * 25 + 15,     // LENGTH of the raindrop (10px to 25px long)
+      speed: Math.random() * 60 + 50  // Very fast falling speed to match the heavy rain look
     });
   }
 
-  // 2. Use requestAnimationFrame for smooth, synced rendering
+  // 2. Animate using lines instead of circles
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    ctx.strokeStyle = 'rgba(217,123,63,0.6)'; // The orange brand color
-    ctx.lineWidth = 4;
-    
-    // Move existing objects and draw lines instead of circles
+    // We use strokeStyle for lines instead of fillStyle
+    ctx.strokeStyle = 'rgba(217,123,63,0.6)';
+    ctx.lineCap = 'round'; // Makes the ends of the drops look like water instead of flat rectangles
+
     particles.forEach(function (p) {
-      // Move the particle down the screen
-      p.y += p.speed;
-      
-      // If it falls off the bottom, loop it back to the top
-      if (p.y > canvas.height) {
-        p.y = -p.length;
-        p.x = Math.random() * canvas.width;
-      }
-      
-      // Draw the vertical streak
+      // Set the width of this specific drop
+      ctx.lineWidth = p.w;
+
       ctx.beginPath();
       ctx.moveTo(p.x, p.y);
-      ctx.lineTo(p.x, p.y + p.length);
+      ctx.lineTo(p.x, p.y + p.l);
       ctx.stroke();
+
+   
+      p.y += p.speed;
+
+      if (p.y > canvas.height) {
+        p.y = -p.l; 
+        p.x = Math.random() * canvas.width;
+      }
     });
-    
+
     requestAnimationFrame(animate);
   }
-  
-  requestAnimationFrame(animate);
+
+  animate();
 }
+
+startParticles();
 
 // --- Lightweight, honest performance HUD so you can SEE the impact of
 // the bugs above (and confirm improvement after fixing them). This part
