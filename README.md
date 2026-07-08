@@ -1,3 +1,8 @@
+**Author:** Pradeep Kumar K.
+**Live Hosted Site:** https://pradeepgiraffe.github.io/assesment-slow-website-fix/
+**Original Broken Site:** https://abhikboruah.github.io/assesment-slow-website/
+
+
 # Developer Assessment: Performance Fix Writeup
 
 ## 1. Main Thread Freeze (Reviews Section)
