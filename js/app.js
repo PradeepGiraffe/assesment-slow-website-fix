@@ -89,6 +89,8 @@ async function renderReviews() {
 
 // --- FIX: Replaced setInterval with requestAnimationFrame for display-synced performance.
 // Moved array allocation outside the loop to prevent massive garbage collection churn.
+// --- FIX: Replaced setInterval with requestAnimationFrame for performance,
+// and restored the original "rain streak" visual effect.
 function startParticles() {
   const canvas = document.getElementById('particle-canvas');
   const ctx = canvas.getContext('2d');
@@ -97,27 +99,38 @@ function startParticles() {
 
   // 1. Allocate memory exactly once
   const particles = [];
-  for (let i = 0; i < 400; i++) {
+  for (let i = 0; i < 200; i++) {
     particles.push({
-      x: 0, 
-      y: 0,
-      r: Math.random() * 3 + 1,
+      x: Math.random() * canvas.width, 
+      y: Math.random() * canvas.height,
+      speed: Math.random() * 18 + 18,    // How fast it falls
+      length: Math.random() * 25 + 15 // How long the streak is
     });
   }
 
   // 2. Use requestAnimationFrame for smooth, synced rendering
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(217,123,63,0.6)';
     
-    // Mutate existing objects instead of destroying/recreating them
+    ctx.strokeStyle = 'rgba(217,123,63,0.6)'; // The orange brand color
+    ctx.lineWidth = 4;
+    
+    // Move existing objects and draw lines instead of circles
     particles.forEach(function (p) {
-      p.x = Math.random() * canvas.width;
-      p.y = Math.random() * canvas.height;
+      // Move the particle down the screen
+      p.y += p.speed;
       
+      // If it falls off the bottom, loop it back to the top
+      if (p.y > canvas.height) {
+        p.y = -p.length;
+        p.x = Math.random() * canvas.width;
+      }
+      
+      // Draw the vertical streak
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(p.x, p.y + p.length);
+      ctx.stroke();
     });
     
     requestAnimationFrame(animate);
