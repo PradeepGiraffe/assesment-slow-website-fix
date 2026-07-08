@@ -2,10 +2,7 @@
    TrailGear Co. — main stylesheet
    =================================================================== */
 
-/* Blocking @import pulls in a full unused "kitchen sink" framework
-   AFTER the browser has already started parsing this file — this
-   delays first paint until the whole chain resolves. */
-@import url('vendor-framework.css');
+
 
 :root {
   --brand-dark: #16241f;
@@ -18,17 +15,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* BUG: a blanket transition on every property of every element,
-     combined with a blanket will-change below, forces the browser to
-     promote nearly everything to its own compositor layer and re-run
-     transition calculations on ANY style change anywhere on the page
-     (including the ones written every scroll tick by JS elsewhere).
-     It looks like an "optimization" (will-change usually helps!) but
-     applied this broadly it does the opposite: extra GPU memory,
-     extra paint cost, and janky transitions on things that were never
-     meant to animate at all. */
-  transition: all 0.4s ease;
-  will-change: transform, opacity;
 }
 
 body {
@@ -38,7 +24,7 @@ body {
   background: var(--brand-light);
   /* Full-resolution texture tiled as a body background — repeated on
      every page even though only a tiny swatch is ever visible. */
-  background-image: url('../assets/bg-pattern.png');
+  background-image: url('../assets/bg-pattern.webp');
 }
 
 header.site-header {
@@ -77,7 +63,7 @@ nav.main-nav a {
   justify-content: center;
   text-align: center;
   color: white;
-  background-image: url('../assets/hero-banner.png');
+  background-image: url('../assets/hero-banner.webp');
   background-size: cover;
   background-position: center;
 }
@@ -112,7 +98,7 @@ nav.main-nav a {
 }
 
 .about-page .hero {
-  background-image: url('../assets/hero-banner-about-page.png');
+  background-image: url('../assets/hero-banner-about-page.webp');
   min-height: 40vh;
 }
 
@@ -163,11 +149,9 @@ section {
   font-weight: 700;
 }
 
-/* Decorative section reusing the same texture under a different name -
-   a second HTTP request for pixel-identical bytes the browser already has. */
 .divider-band {
   height: 120px;
-  background-image: url('../assets/texture-copy.png');
+  background-image: url('../assets/bg-pattern.webp');
   background-repeat: repeat;
 }
 
@@ -201,7 +185,7 @@ section {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   opacity: 0.5;
 }
 

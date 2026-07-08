@@ -1,10 +1,4 @@
-/* ===================================================================
-   TrailGear Co. — app.js
-   =================================================================== */
 
-// --- BUG: jQuery is loaded twice (see index.html) via two <script> tags
-// with different filenames but identical content. $.noConflict noise below
-// is a red herring some candidates chase instead of removing the duplicate tag.
 $(document).ready(function () {
   console.log('jQuery ready, version', $.fn.jquery);
 });
@@ -20,10 +14,7 @@ window.addEventListener('mousemove', function (e) {
   }
 });
 
-// --- BUG: a resize handler that is re-registered on every call to
-// initGallery() instead of once. Every window resize therefore adds
-// ANOTHER listener on top of all previous ones, so work done per-resize
-// grows over the life of the page (also a leak).
+
 function initGallery() {
   window.addEventListener('resize', function () {
     document.querySelectorAll('.product-card').forEach(function (card) {
@@ -97,13 +88,15 @@ function startParticles() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  // 1. Allocate memory exactly once
+// Change the 200 count to be responsive
+  // 50 particles on mobile, 200 on desktop
+  const particleCount = window.innerWidth < 768 ? 50 : 200;
   const particles = [];
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < particleCount; i++) {
     particles.push({
       x: Math.random() * canvas.width, 
       y: Math.random() * canvas.height,
-      speed: Math.random() * 18 + 18,    // How fast it falls
+      speed: Math.random() * 14 + 14,    // How fast it falls
       length: Math.random() * 25 + 15 // How long the streak is
     });
   }

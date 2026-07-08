@@ -5,22 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TrailGear Co. — Outdoor Gear for Every Trail</title>
 
+
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/fonts.css">
 
+  <link rel="preload" href="assets/fonts/trailsans-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/trailsans-bold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/hero-banner.webp" fetchpriority="high">
   <!-- "Just in case" legacy support check. -->
   <script>
-    // BUG: the intended check was `!window.Promise`. The stray `|| true`
-    // (left over from a debugging session, per the commit that added
-    // it) means this is unconditionally true, so the ~165KB legacy
-    // polyfill bundle is downloaded and executed in every browser,
-    // modern or not. document.write() here also blocks the parser.
     if (!window.Promise) {
       document.write('<script src="js/vendor/legacy-polyfill.js"><\/script>');
     }
   </script>
 
-   <script src="js/vendor/jquery-3.6.0.min.js"></script>
+   <script src="js/vendor/jquery-3.6.0.min.js" defer></script>
 </head>
 <body>
 
@@ -58,16 +57,16 @@
     <h2 class="section-title">Best Sellers</h2>
     <div class="product-grid" id="product-grid">
       <!-- 10 product cards, each referencing a full-resolution "thumbnail" -->
-<div class="product-card" data-product-id="1"><img src="assets/product-1-thumb.png" alt="Trail 40L Backpack" loading="eager"> ... </div>
-      <div class="product-card" data-product-id="2"><img src="assets/product-2-thumb.png" alt="AllWeather 2P Tent" loading="eager"> ... </div>
-      <div class="product-card" data-product-id="3"><img src="assets/product-3-thumb.png" alt="Ridge Hiking Boots" loading="lazy"> ... </div>
-      <div class="product-card" data-product-id="4"><img src="assets/product-4-thumb.png" alt="Down Sleeping Bag" loading="lazy"> ... </div>
-      <div class="product-card" data-product-id="5"><img src="assets/product-5-thumb.png" alt="Carbon Trekking Poles" loading="lazy"> ... </div>
-      <div class="product-card" data-product-id="6"><img src="assets/product-6-thumb.png" alt="Storm Rain Jacket" loading="lazy"><div class="info"><h3>Storm Rain Jacket</h3><p class="price">$159</p></div></div>
-      <div class="product-card" data-product-id="7"><img src="assets/product-7-thumb.png" alt="Compact Water Filter" loading="lazy"><div class="info"><h3>Compact Water Filter</h3><p class="price">$49</p></div></div>
-      <div class="product-card" data-product-id="8"><img src="assets/product-8-thumb.png" alt="Camp Stove Kit" loading="lazy"><div class="info"><h3>Camp Stove Kit</h3><p class="price">$69</p></div></div>
-      <div class="product-card" data-product-id="9"><img src="assets/product-9-thumb.png" alt="Rechargeable Headlamp" loading="lazy"><div class="info"><h3>Rechargeable Headlamp</h3><p class="price">$39</p></div></div>
-      <div class="product-card" data-product-id="10"><img src="assets/product-10-thumb.png" alt="Merino Base Layer" loading="lazy"><div class="info"><h3>Merino Base Layer</h3><p class="price">$59</p></div></div>
+<div class="product-card" data-product-id="1"><img src="assets/product-1-thumb.webp" alt="Trail 40L Backpack" loading="eager"> ... </div>
+      <div class="product-card" data-product-id="2"><img src="assets/product-2-thumb.webp" alt="AllWeather 2P Tent" loading="eager"> ... </div>
+      <div class="product-card" data-product-id="3"><img src="assets/product-3-thumb.webp" alt="Ridge Hiking Boots" loading="lazy"> ... </div>
+      <div class="product-card" data-product-id="4"><img src="assets/product-4-thumb.webp" alt="Down Sleeping Bag" loading="lazy"> ... </div>
+      <div class="product-card" data-product-id="5"><img src="assets/product-5-thumb.webp" alt="Carbon Trekking Poles" loading="lazy"> ... </div>
+      <div class="product-card" data-product-id="6"><img src="assets/product-6-thumb.webp" alt="Storm Rain Jacket" loading="lazy"><div class="info"><h3>Storm Rain Jacket</h3><p class="price">$159</p></div></div>
+      <div class="product-card" data-product-id="7"><img src="assets/product-7-thumb.webp" alt="Compact Water Filter" loading="lazy"><div class="info"><h3>Compact Water Filter</h3><p class="price">$49</p></div></div>
+      <div class="product-card" data-product-id="8"><img src="assets/product-8-thumb.webp" alt="Camp Stove Kit" loading="lazy"><div class="info"><h3>Camp Stove Kit</h3><p class="price">$69</p></div></div>
+      <div class="product-card" data-product-id="9"><img src="assets/product-9-thumb.webp" alt="Rechargeable Headlamp" loading="lazy"><div class="info"><h3>Rechargeable Headlamp</h3><p class="price">$39</p></div></div>
+      <div class="product-card" data-product-id="10"><img src="assets/product-10-thumb.webp" alt="Merino Base Layer" loading="lazy"><div class="info"><h3>Merino Base Layer</h3><p class="price">$59</p></div></div>
     </div>
   </section>
 
@@ -94,8 +93,8 @@
     &copy; 2026 TrailGear Co. — Demo site for a performance debugging exercise.
   </footer>
 
-  <script src="js/app.js"></script>
-  <script src="js/analytics.js"></script>
-  <script src="js/quickview.js"></script>
+  <script src="js/app.js"defer></script>
+  <script src="js/analytics.js"defer></script>
+  <script src="js/quickview.js" defer></script>
 </body>
 </html>

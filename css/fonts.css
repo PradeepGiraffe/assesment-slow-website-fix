@@ -2,6 +2,7 @@
   font-family: 'TrailSans';
   font-weight: 400;
   src: url('../assets/fonts/trailsans-regular.woff2') format('woff2');
+  font-display: swap;
 }
 
 @font-face {
