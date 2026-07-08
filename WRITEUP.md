@@ -1,7 +1,7 @@
 # TrailGear Co. - Performance Optimization Assessment
 
 **Author:** Pradeep Kumar K.
-**Live Hosted Site:** []
+**Live Hosted Site:** https://pradeepgiraffe.github.io/assesment-slow-website-fix/
 **Original Broken Site:** https://abhikboruah.github.io/assesment-slow-website/
 
 ## Overview
